@@ -4,7 +4,7 @@ Use this as the final judging map for the six review areas.
 
 ## Code Quality
 
-- Modular runtime: `server.js`, `public/analyzer.js`, `public/cuadTaxonomy.js`, `src/documentai.js`, `src/openai.js`, and `src/gemini.js` have clear ownership.
+- Modular runtime: `server.js`, `public/analyzer.js`, `public/cuadTaxonomy.js`, `src/documentai.js`, `src/bigquery.js`, `src/openai.js`, and `src/gemini.js` have clear ownership.
 - Deterministic local analyzer works without cloud credentials, making demos repeatable.
 - Dataset utilities are isolated under `scripts/` and generated data is ignored by git.
 - Syntax checks run across JavaScript and Python with `npm run check`.
@@ -23,12 +23,17 @@ Use this as the final judging map for the six review areas.
 
 - Local analyzer runs instantly and does not call an LLM for every interaction.
 - OpenAI, Vertex AI, and Document AI requests have timeouts and local fallbacks.
+- Static assets are cached in memory and served with ETags so refreshes can reuse unchanged files.
+- Browser cache headers avoid unnecessary refetching for JS, CSS, images, and static JSON/text assets.
+- BigQuery telemetry is queued asynchronously and never blocks the analysis response.
 - Static app has no frontend build step or heavy dependency chain.
 - File uploads are processed in memory only for the demo prototype and constrained by size limits.
 
 ## Testing
 
 - `npm run check` validates JavaScript and Python syntax.
+- `npm test` runs the deterministic sample checks and gauge layout regression checks.
+- `npm run test:static-cache` verifies static asset cache headers and ETag `304` revalidation.
 - `npm run test:samples` validates high-risk detection, CUAD category coverage, and no-risk quiet behavior.
 - `samples/category-coverage-contract.txt` confirms 20/20 practical risk findings and 41/41 CUAD categories.
 - No-risk samples for employee, consumer, vendor, and consulting flows confirm the system can return `Clear`.
@@ -45,9 +50,10 @@ Use this as the final judging map for the six review areas.
 ## Google Services
 
 - Google Document AI OCR extracts text from PDF uploads through the configured processor.
+- Google BigQuery can receive privacy-safe aggregate analysis telemetry for scoring and demo analytics.
 - Vertex AI Gemini path remains available through `AI_PROVIDER=vertex`.
 - Cloud Run deployment files are present with `cloudbuild.yaml` and `Dockerfile`.
-- The architecture plan maps future production storage and evaluation to Cloud Storage, Firestore, BigQuery, and Vertex AI Vector Search.
+- The architecture plan maps production storage and evaluation to Cloud Storage, Firestore, BigQuery, and Vertex AI Vector Search.
 
 ## Final Demo Proof
 

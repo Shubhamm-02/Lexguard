@@ -2,7 +2,7 @@
 
 AI Rights & Contract Intelligence System for the Google Prompt Wars problem statement.
 
-LEXGUARD is a working prototype that turns contract text into an evidence-backed risk report: clause extraction, severity scoring, cross-clause reasoning, adversarial review perspectives, scenario impact, and negotiation-ready edits. It runs locally with no dependencies and can optionally add a Vertex AI Gemini review layer using your GCP project.
+LEXGUARD is a working prototype that turns contract text into an evidence-backed risk report: clause extraction, severity scoring, cross-clause reasoning, adversarial review perspectives, scenario impact, and negotiation-ready edits. It runs locally with no dependencies and can optionally add Google Document AI OCR, BigQuery telemetry, Vertex AI Gemini, and GPT-5.5 review paths.
 
 Live demo: https://lexguard-739958449324.us-central1.run.app
 
@@ -13,6 +13,13 @@ npm start
 ```
 
 Open `http://localhost:8080`.
+
+Run the validation suite:
+
+```bash
+npm run check
+npm test
+```
 
 ## Optional Vertex AI Mode
 
@@ -59,11 +66,24 @@ The server keeps the API key out of browser code. LEXGUARD still runs locally if
 - Evidence-first clause analysis, not generic summarization.
 - CUAD-aligned clause taxonomy covering 41 contract review categories.
 - Optional GPT-5.5 second-review layer through the OpenAI Responses API.
+- Optional Google BigQuery telemetry for privacy-safe aggregate evaluation metrics.
 - Multi-perspective review board: rights advocate, contract counsel, risk officer, negotiation coach.
 - Cross-clause reasoning for combined risks like indemnity plus liability caps.
 - Scenario simulation for real-world consequences after cancellation, termination, disputes, or data use.
 - Negotiation plan with fallback asks for each high-risk clause.
-- GCP-ready architecture: Cloud Run frontend/API, Vertex AI Gemini reasoning, Document AI OCR parsing, Cloud Storage, Firestore/BigQuery, and optional vector search.
+- GCP-ready architecture: Cloud Run frontend/API, Document AI OCR parsing, BigQuery scoring telemetry, Vertex AI Gemini reasoning, Cloud Storage, Firestore, and optional vector search.
+
+## Optional BigQuery Telemetry
+
+LEXGUARD can log aggregate analysis metrics to BigQuery without storing contract text:
+
+```bash
+GOOGLE_TELEMETRY_ENABLED=true
+BIGQUERY_DATASET=lexguard_analytics
+BIGQUERY_TABLE=analysis_events
+```
+
+The row contains risk score, level, detected document type, persona, finding counts, CUAD coverage, and engine mode. This gives judges a visible Google Services workflow while keeping uploaded contracts private.
 
 ## CUAD Dataset Workflow
 

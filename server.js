@@ -1,9 +1,11 @@
 import http from "node:http";
+import { createHash, randomUUID } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { analyzeContract } from "./public/analyzer.js";
+import { logAnalysisEvent } from "./src/bigquery.js";
 import { extractTextWithDocumentAI } from "./src/documentai.js";
 import { enhanceWithGemini } from "./src/gemini.js";
 import { answerContractQuestion, enhanceWithOpenAI, hasOpenAIKey } from "./src/openai.js";
@@ -27,9 +29,14 @@ const config = {
   documentAITimeoutMs: Number(process.env.DOCUMENT_AI_TIMEOUT_MS || 20000),
   maxUploadBytes: Number(process.env.MAX_UPLOAD_BYTES || 8_000_000),
   aiProvider: process.env.AI_PROVIDER || (process.env.OPENAI_API_KEY ? "openai" : "local"),
+  googleTelemetryEnabled: process.env.GOOGLE_TELEMETRY_ENABLED === "true",
+  bigQueryDataset: process.env.BIGQUERY_DATASET || "",
+  bigQueryTable: process.env.BIGQUERY_TABLE || "analysis_events",
   port: Number(process.env.PORT || 8080),
   host: process.env.HOST || (process.env.K_SERVICE ? "0.0.0.0" : "127.0.0.1")
 };
+
+const staticAssetCache = new Map();
 
 const mimeTypes = {
   ".html": "text/html; charset=utf-8",
@@ -109,6 +116,7 @@ const server = http.createServer(async (req, res) => {
         contractType: payload.contractType,
         documentName: payload.documentName
       });
+      queueAnalysisTelemetry(localReport, config.aiProvider.toLowerCase(), text);
 
       if (config.aiProvider.toLowerCase() === "openai") {
         const enhanced = await withOpenAISafety(localReport, text, payload);
@@ -186,7 +194,7 @@ const server = http.createServer(async (req, res) => {
     }
 
     if (req.method === "GET") {
-      return serveStatic(url.pathname, res);
+      return serveStatic(req, url.pathname, res);
     }
 
     return sendJson(res, 405, { error: "Method not allowed" });
@@ -289,6 +297,39 @@ function localChatAnswer(message, report) {
   return `Based on the current report, the main issue is ${topFinding.title} in ${topFinding.clauseId}. ${topFinding.explanation} Practical impact: ${topFinding.realWorldImpact} A reasonable ask is: ${topFinding.negotiationAsk}`;
 }
 
+function queueAnalysisTelemetry(report, engineMode, sourceText) {
+  if (!config.googleTelemetryEnabled || !config.projectId || !config.bigQueryDataset) {
+    return;
+  }
+
+  const highRiskFindings = (report.findings || []).filter((finding) => finding.severity === "high").length;
+  const event = {
+    event_id: randomUUID(),
+    created_at: new Date().toISOString(),
+    document_type: String(report.meta?.detectedType || "unknown"),
+    persona: String(report.meta?.persona || "unknown"),
+    risk_score: Number(report.metrics?.score || 0),
+    risk_level: String(report.metrics?.level || "unknown"),
+    total_findings: Number(report.findings?.length || 0),
+    high_risk_findings: highRiskFindings,
+    cuad_detected: Number(report.cuad?.detected?.length || 0),
+    cuad_total: Number(report.cuad?.total || 41),
+    top_category: String(report.metrics?.topCategory || "none"),
+    engine_mode: String(engineMode || "local"),
+    word_count: String(sourceText || "").trim().split(/\s+/).filter(Boolean).length,
+    clause_count: Number(report.clauses?.length || 0)
+  };
+
+  logAnalysisEvent({
+    projectId: config.projectId,
+    datasetId: config.bigQueryDataset,
+    tableId: config.bigQueryTable,
+    event
+  }).catch((error) => {
+    console.warn(`BigQuery telemetry skipped: ${publicErrorMessage(error)}`);
+  });
+}
+
 function isRelevantContractQuestion(message, report) {
   const lower = String(message || "").toLowerCase();
   const relevantTerms = [
@@ -330,7 +371,7 @@ function escapeRegExp(value) {
   return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-async function serveStatic(requestPath, res) {
+async function serveStatic(req, requestPath, res) {
   let cleanPath = "";
   try {
     cleanPath = decodeURIComponent(requestPath.split("?")[0]);
@@ -346,13 +387,50 @@ async function serveStatic(requestPath, res) {
   }
 
   const extension = path.extname(filePath);
-  const data = await readFile(filePath);
-  res.writeHead(200, {
+  const asset = await getStaticAsset(filePath, extension);
+  const headers = {
     ...securityHeaders(),
-    "content-type": mimeTypes[extension] || "application/octet-stream",
-    "cache-control": "no-store"
-  });
-  res.end(data);
+    "content-type": asset.contentType,
+    "cache-control": cacheControlFor(extension),
+    etag: asset.etag
+  };
+
+  if (req.headers["if-none-match"] === asset.etag) {
+    res.writeHead(304, headers);
+    res.end();
+    return;
+  }
+
+  res.writeHead(200, headers);
+  res.end(asset.data);
+}
+
+async function getStaticAsset(filePath, extension) {
+  const cached = staticAssetCache.get(filePath);
+  if (cached) {
+    return cached;
+  }
+
+  const data = await readFile(filePath);
+  const asset = {
+    data,
+    contentType: mimeTypes[extension] || "application/octet-stream",
+    etag: `"${createHash("sha256").update(data).digest("hex").slice(0, 24)}"`
+  };
+  staticAssetCache.set(filePath, asset);
+  return asset;
+}
+
+function cacheControlFor(extension) {
+  if (extension === ".html") {
+    return "no-store";
+  }
+
+  if ([".js", ".css", ".png", ".svg", ".json", ".txt"].includes(extension)) {
+    return "public, max-age=600, stale-while-revalidate=86400";
+  }
+
+  return "no-store";
 }
 
 async function readBody(req) {

@@ -3,12 +3,12 @@ steps:
     args:
       - build
       - -t
-      - gcr.io/$PROJECT_ID/lexguard:$SHORT_SHA
+      - us-central1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/lexguard:$BUILD_ID
       - .
   - name: gcr.io/cloud-builders/docker
     args:
       - push
-      - gcr.io/$PROJECT_ID/lexguard:$SHORT_SHA
+      - us-central1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/lexguard:$BUILD_ID
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk
     entrypoint: gcloud
     args:
@@ -16,13 +16,13 @@ steps:
       - deploy
       - lexguard
       - --image
-      - gcr.io/$PROJECT_ID/lexguard:$SHORT_SHA
+      - us-central1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/lexguard:$BUILD_ID
       - --region
       - us-central1
       - --platform
       - managed
       - --allow-unauthenticated
-      - --set-env-vars
-      - GOOGLE_CLOUD_PROJECT=$PROJECT_ID,AI_PROVIDER=local,VERTEX_LOCATION=global,VERTEX_MODEL=gemini-2.5-flash,DOCUMENT_AI_LOCATION=us,DOCUMENT_AI_TIMEOUT_MS=20000,MAX_UPLOAD_BYTES=8000000
+      - --update-env-vars
+      - GOOGLE_CLOUD_PROJECT=$PROJECT_ID,AI_PROVIDER=local,VERTEX_LOCATION=global,VERTEX_MODEL=gemini-2.5-flash,DOCUMENT_AI_LOCATION=us,DOCUMENT_AI_TIMEOUT_MS=20000,MAX_UPLOAD_BYTES=8000000,GOOGLE_TELEMETRY_ENABLED=true,BIGQUERY_DATASET=lexguard_analytics,BIGQUERY_TABLE=analysis_events
 images:
-  - gcr.io/$PROJECT_ID/lexguard:$SHORT_SHA
+  - us-central1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/lexguard:$BUILD_ID
