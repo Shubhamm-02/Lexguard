@@ -916,11 +916,11 @@ button:focus-visible {
 }
 
 .risk-gauge {
-  position: relative;
   display: grid;
   justify-items: center;
   width: min(100%, 320px);
   margin: 2px auto 0;
+  gap: 2px;
 }
 
 .risk-gauge svg {
@@ -962,16 +962,15 @@ button:focus-visible {
 }
 
 .gauge-value {
-  position: absolute;
-  left: 50%;
-  bottom: 6px;
   display: grid;
-  transform: translateX(-50%);
+  min-height: 74px;
+  align-content: start;
   text-align: center;
 }
 
 .gauge-value strong {
-  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  font-size: clamp(2.25rem, 5vw, 3.35rem);
+  line-height: 0.92;
   font-weight: 950;
   letter-spacing: 0;
 }
