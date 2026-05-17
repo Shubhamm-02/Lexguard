@@ -91,41 +91,33 @@ function render() {
 function restoreSavedSession() {
   const saved = readSavedSession();
   if (!saved) return;
+  const selectedRole = roleCards.some((role) => role.id === saved.selectedRole) ? saved.selectedRole : "employee";
+  const roleSample = roleCards.find((role) => role.id === selectedRole)?.sample || "employment";
+  const selectedSample = sampleDocuments[saved.selectedSample] ? saved.selectedSample : roleSample;
 
   Object.assign(state, {
     theme: themes.has(saved.theme) ? saved.theme : state.theme,
-    step: isWorkflowStep(saved.step) ? saved.step : "onboarding",
-    selectedRole: roleCards.some((role) => role.id === saved.selectedRole) ? saved.selectedRole : "employee",
-    selectedSample: saved.selectedSample || "employment",
+    step: isWorkflowStep(saved.step) && saved.step !== "analysis" ? saved.step : "onboarding",
+    selectedRole,
+    selectedSample,
     contractType: saved.contractType || "auto",
-    contractText: saved.contractText || "",
-    report: saved.report || null,
-    selectedFindingId: saved.selectedFindingId || null,
-    selectedClauseId: saved.selectedClauseId || null,
+    contractText: sampleDocuments[selectedSample]?.text || sampleDocuments.employment.text,
+    report: null,
+    selectedFindingId: null,
+    selectedClauseId: null,
     reviewSection: reviewSections.has(saved.reviewSection) ? saved.reviewSection : "summary",
     reasoningTab: saved.reasoningTab || "explanation",
-    chatOpen: Boolean(saved.chatOpen),
-    fileName: saved.fileName || "",
-    uploadMessage: saved.uploadMessage || "",
-    chatMessages: Array.isArray(saved.chatMessages) && saved.chatMessages.length ? saved.chatMessages : initialChatMessages(saved.report)
+    chatOpen: false,
+    fileName: "",
+    uploadMessage: "",
+    chatMessages: initialChatMessages()
   });
 
-  if (state.selectedSample !== "custom" && !sampleDocuments[state.selectedSample]) {
-    state.selectedSample = roleCards.find((role) => role.id === state.selectedRole)?.sample || "employment";
-  }
-  if (!state.contractText) {
-    state.contractText = sampleDocuments[state.selectedSample]?.text || sampleDocuments.employment.text;
-  }
-  if (state.step === "analysis" && !state.report) {
-    state.step = "upload";
-  }
   state.dragActive = false;
   state.exportOpen = false;
   state.isAnalyzing = false;
   state.isRevealingAnswer = false;
-  if (!state.report) {
-    resetChat();
-  }
+  resetChat();
 }
 
 function readSavedSession() {
@@ -142,23 +134,15 @@ function persistSession() {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify({
       theme: state.theme,
-      step: state.step,
+      step: state.step === "analysis" ? "upload" : state.step,
       selectedRole: state.selectedRole,
-      selectedSample: state.selectedSample,
+      selectedSample: sampleDocuments[state.selectedSample] ? state.selectedSample : roleCards.find((role) => role.id === state.selectedRole)?.sample || "employment",
       contractType: state.contractType,
-      contractText: state.contractText,
-      report: state.report,
-      selectedFindingId: state.selectedFindingId,
-      selectedClauseId: state.selectedClauseId,
       reviewSection: state.reviewSection,
-      reasoningTab: state.reasoningTab,
-      chatOpen: state.chatOpen,
-      fileName: state.fileName,
-      uploadMessage: state.uploadMessage,
-      chatMessages: state.chatMessages
+      reasoningTab: state.reasoningTab
     }));
   } catch {
-    // Large pasted contracts can exceed browser storage. The app still works in memory.
+    // Browser storage can be unavailable. The app still works in memory.
   }
 }
 
