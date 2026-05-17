@@ -1,0 +1,26 @@
+{
+  "name": "lexguard-promptwars",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "LEXGUARD - AI Rights & Contract Intelligence System for Google Prompt Wars.",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "check": "node --check server.js && node --check src/googleAuth.js && node --check src/documentai.js && node --check src/gemini.js && node --check src/openai.js && node --check public/cuadTaxonomy.js && node --check public/analyzer.js && node --check public/app.js && node --check scripts/analyze-file.mjs && node --check scripts/check-samples.mjs && python3 -m py_compile scripts/fetch_cuad.py scripts/fetch_legalbench.py",
+    "test:samples": "node scripts/check-samples.mjs",
+    "analyze:file": "node scripts/analyze-file.mjs",
+    "cuad:fetch": "python3 scripts/fetch_cuad.py",
+    "legalbench:fetch": "python3 scripts/fetch_legalbench.py"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "contract-intelligence",
+    "legal-ai",
+    "vertex-ai",
+    "gemini",
+    "promptwars"
+  ]
+}

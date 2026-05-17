@@ -1,0 +1,92 @@
+LEXGUARD CATEGORY COVERAGE AGREEMENT
+Agreement Date: January 1, 2026. This Category Coverage Agreement is entered into between Alpha Client Inc. and Beta Vendor LLC as the parties. The agreement becomes effective on January 1, 2026, commences immediately, and the initial term expires on December 31, 2026 unless extended.
+
+RENEWAL AND REFUNDS
+The subscription renews automatically for successive one-year periods unless cancelled at least sixty days before the renewal date. Fees are non-refundable, no refunds will be issued, and the customer pays even where the customer does not use the service.
+
+GOVERNING LAW AND FORUM
+This agreement is governed by the laws of the State of New York, and any jurisdiction or venue dispute may be brought in the provider's home county or in a court of its choosing selected by the company.
+
+MOST FAVORED PRICING
+Vendor shall provide Customer with most favored customer status, better terms, and no less favorable pricing than Vendor provides to any similarly situated customer.
+
+NON COMPETE AND OUTSIDE WORK
+For twenty-four months after termination, Contractor shall not compete with Customer, shall not work for, advise, consult with, invest in, or assist any competitive business or anticipated product line anywhere in the world. Contractor shall devote services exclusively to the company and shall not engage in any outside business, outside work, teaching, consulting, open-source, advisory, or creative activity without prior written approval.
+
+EXCLUSIVITY AND CUSTOMER NON SOLICIT
+Vendor grants Customer exclusive rights and will work exclusively with Customer for this market. Vendor shall not license, sell, collaborate, or work with any third party, and shall not solicit any customer, client, partner, or customer of the counterparty.
+
+COMPETITIVE RESTRICTION EXCEPTION
+The restrictions above shall not apply to passive investment of less than two percent in a public company, and this carve-out is a permitted exception to the non-compete and exclusivity restrictions.
+
+EMPLOYEE NON SOLICIT AND NON DISPARAGEMENT
+During the term and for two years after termination, each party shall not solicit any employee or contractor of the other party, hire any employee or contractor, or make any disparaging, non-disparagement, or negative statement about the other party.
+
+TERMINATION RIGHTS
+Customer may terminate for convenience immediately and may terminate this agreement at any time without cause. Vendor may terminate only after providing ninety days notice and a thirty day cure period, and Customer may terminate the project at any time without paying for partially completed work.
+
+FIRST REFUSAL AND CHANGE OF CONTROL
+Customer has a right of first refusal, right of first offer, and right of first negotiation for any sale of the product line. A change of control, merger, stock sale, transfer of substantially all assets, or assignment by operation of law triggers Customer approval rights.
+
+ANTI ASSIGNMENT
+Vendor may not assign this agreement, shall not assign any rights, and may not transfer this agreement without Customer's prior written consent to assignment.
+
+REVENUE AND PRICING
+Vendor will pay a royalty and revenue share equal to ten percent of gross receipts and will share profit from the covered product. Vendor accepts a price restriction, may not raise price or reduce price without approval, and any price increase requires Customer consent.
+
+MINIMUM COMMITMENT AND VOLUME
+Customer has a minimum commitment, minimum purchase, minimum spend, and minimum units order every quarter. If usage exceeds the threshold, the volume restriction applies and an overage fee increase will be charged.
+
+IP OWNERSHIP AND ASSIGNMENT
+All inventions, discoveries, works of authorship, developments, improvements, data, prompts, workflows, models, concepts, methods, templates, know-how, source files, ideas, and derivative works created or used by Contractor are the sole and exclusive property of Customer. Contractor irrevocably assigns all rights, title, and interest, and the intellectual property is assigned to Customer.
+
+JOINT IP OWNERSHIP
+Any jointly developed integration shall be subject to joint ownership, shared ownership, and co-own rights between the parties unless otherwise agreed in writing.
+
+LICENSE GRANT
+Contractor grants Customer a perpetual, worldwide, irrevocable, sublicensable license and right to use Contractor's name, likeness, portfolio, methods, tools, background intellectual property, and deliverables for any purpose without additional payment.
+
+NON TRANSFERABLE AND AFFILIATE LICENSES
+The license is a non-transferable license and Customer may not transfer the license except as allowed here. Affiliates of the licensor may provide affiliate intellectual property, and the licensor's affiliates are included in the grant. The licensee and its affiliates have the right to use the licensed materials, and any sublicensor affiliates may also exercise those rights.
+
+UNLIMITED LICENSE AND SOURCE CODE ESCROW
+Customer receives an unlimited license, enterprise license, all-you-can-eat license, and unlimited usage rights. Vendor must maintain source code escrow, deposit source code with the escrow agent, and release escrow source code after trigger events.
+
+POST TERMINATION SERVICES
+After termination, all confidentiality, payment, license, and transition services obligations survive termination. Vendor must provide post-termination wind-down support and last-buy assistance for ninety days.
+
+AUDIT RIGHTS AND COMPLIANCE
+Customer has an audit right and may audit Vendor's systems, audit records, books, records, personnel, subcontractors, and physical locations at any time. Vendor shall remediate findings at Vendor's expense and must comply with all applicable laws, customer policies, security procedures, audit requests, insurance requirements, and instructions from time to time.
+
+LIABILITY CAPS AND CARVEOUTS
+Vendor's uncapped liability is not subject to any cap and is excluded from limitation for confidentiality, data security, privacy, intellectual property, indemnity, fraud, negligence, and service failures. Customer's aggregate liability shall not exceed fees paid in the prior month, Customer's total liability is limited, and this is the cap on liability.
+
+INDEMNITY
+Vendor shall indemnify and hold harmless Customer, its affiliates, officers, investors, customers, and partners from any claim, loss, penalty, investigation cost, attorney fee, damage, allegation, or expense connected to the services, whether or not caused by negligence.
+
+LIQUIDATED DAMAGES
+Vendor shall pay liquidated damages, a termination fee, a break-up fee, and fixed damages of $50,000 for any late delivery or early termination.
+
+WARRANTY AND INSURANCE
+Vendor warrants for twelve months and the warranty period lasts 365 days after acceptance. Vendor shall maintain insurance, commercial general liability, errors and omissions coverage, and policy limits of at least $2,000,000.
+
+COVENANT NOT TO SUE
+Vendor gives a covenant not to sue, shall not bring any claim against Customer, and will not now or in the future contest validity of Customer intellectual property.
+
+THIRD PARTY BENEFICIARIES
+Customer's affiliates, investors, customers, and partners are third-party beneficiaries and may enforce rights under this agreement.
+
+UNILATERAL CHANGES
+Customer may modify policies, pricing, data retention practices, compensation plans, benefits, bonus criteria, and these terms at any time in its sole discretion without notice. Continued use, continued performance, or continued employment constitutes acceptance, and notice may be provided by posting an update on the website.
+
+PRIVACY AND DATA SHARING
+The user authorizes the provider and its affiliates to collect, combine, sell, license, and share personal data, device identifiers, precise location information, payment metadata, browsing activity, and inferred preferences with partners for analytics, advertising, credit scoring, and product development.
+
+ARBITRATION AND CLASS WAIVER
+Any dispute shall be resolved by binding arbitration selected by the company. The user waives jury trial and waives the right to participate in any class, collective, or representative action.
+
+CONFIDENTIALITY
+Confidential information includes all information disclosed by Customer, whether marked confidential or not, and remains confidential indefinitely. The receiving party shall keep confidential information confidential indefinitely.
+
+ACCEPTANCE AND PAYMENT
+Payment is due only upon Customer's final acceptance, and acceptance may be withheld in Customer's sole discretion as determined by Customer.

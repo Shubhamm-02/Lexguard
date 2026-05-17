@@ -1,0 +1,20 @@
+VENDOR MASTER SERVICES AGREEMENT
+This Vendor Master Services Agreement is entered into between Northstar Retail LLC as Customer and AtlasOps Pvt. Ltd. as Vendor. The agreement commences on March 1, 2026.
+
+COMPLIANCE OBLIGATIONS
+Vendor shall comply with all applicable laws, customer policies, security procedures, audit requests, insurance requirements, and instructions that Customer may issue from time to time.
+
+AUDIT RIGHTS
+Customer may audit Vendor's systems, books, records, personnel, subcontractors, and facilities at any time. Vendor shall remediate findings at Vendor's expense within five business days.
+
+LIABILITY
+Vendor's liability for confidentiality, data security, privacy, intellectual property, indemnity, fraud, negligence, and service failures is uncapped. Customer's total liability is limited to fees paid in the prior month.
+
+INDEMNITY
+Vendor shall indemnify and hold harmless Customer and its affiliates from any claim, loss, penalty, investigation cost, attorney fee, damage, allegation, or expense connected to the services.
+
+TERMINATION
+Customer may terminate for convenience immediately. Vendor may terminate only after providing ninety days notice and a thirty day cure period.
+
+INTELLECTUAL PROPERTY
+All inventions, discoveries, works, developments, improvements, deliverables, derivative works, feedback, workflows, and ideas related to the services are the sole and exclusive property of Customer. Vendor irrevocably assigns all rights, title, and interest to Customer.
