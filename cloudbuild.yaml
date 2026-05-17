@@ -23,6 +23,6 @@ steps:
       - managed
       - --allow-unauthenticated
       - --set-env-vars
-      - GOOGLE_CLOUD_PROJECT=$PROJECT_ID,AI_PROVIDER=vertex,VERTEX_LOCATION=global,VERTEX_MODEL=gemini-2.5-flash
+      - GOOGLE_CLOUD_PROJECT=$PROJECT_ID,AI_PROVIDER=local,VERTEX_LOCATION=global,VERTEX_MODEL=gemini-2.5-flash,DOCUMENT_AI_LOCATION=us,DOCUMENT_AI_TIMEOUT_MS=20000,MAX_UPLOAD_BYTES=8000000
 images:
   - gcr.io/$PROJECT_ID/lexguard:$SHORT_SHA

@@ -4,6 +4,8 @@ AI Rights & Contract Intelligence System for the Google Prompt Wars problem stat
 
 LEXGUARD is a working prototype that turns contract text into an evidence-backed risk report: clause extraction, severity scoring, cross-clause reasoning, adversarial review perspectives, scenario impact, and negotiation-ready edits. It runs locally with no dependencies and can optionally add a Vertex AI Gemini review layer using your GCP project.
 
+Live demo: https://lexguard-739958449324.us-central1.run.app
+
 ## Run Locally
 
 ```bash

@@ -1367,7 +1367,7 @@ async function handleChatSubmit(event) {
             }
           : null
       })
-    }, 12000);
+    }, 30000);
     const payload = await response.json();
     answer = payload.answer || "I could not answer from the current report.";
   } catch {

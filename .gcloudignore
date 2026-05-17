@@ -1,0 +1,14 @@
+.git/
+.gitignore
+.DS_Store
+.env
+.gcloud/
+ChatGPT Image*.png
+node_modules/
+dist/
+coverage/
+__pycache__/
+*.pyc
+data/cuad/
+data/legalbench/
+npm-debug.log*
