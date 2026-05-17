@@ -6,6 +6,37 @@ LEXGUARD is a working prototype that turns contract text into an evidence-backed
 
 Live demo: https://lexguard-739958449324.us-central1.run.app
 
+## Chosen Vertical
+
+LEXGUARD targets the legal-tech and contract-intelligence vertical. The focus is on helping employees, consumers, freelancers, vendors, and founders understand risky contract language before they sign.
+
+## Approach And Logic
+
+The system uses a hybrid workflow:
+
+- A deterministic local analyzer extracts clauses, maps them to a CUAD-aligned 41-category taxonomy, scores risks, and generates explanations from the selected user role.
+- Cross-clause logic looks for compound risks such as broad indemnity plus weak liability caps, auto-renewal plus no refund, or IP assignment plus sublicensing rights.
+- Optional AI review layers through OpenAI GPT-5.5 or Vertex AI Gemini can act as a second reviewer, while the local engine remains the stable fallback.
+- Google Document AI extracts readable text from PDFs and scanned/image uploads when configured.
+- Optional BigQuery telemetry stores aggregate analysis metrics only, never raw contract text.
+
+## How The Solution Works
+
+1. The user selects a role lens such as employee, consumer, freelancer, vendor, or founder.
+2. The user uploads or pastes a contract, policy, subscription term, MSA, offer letter, or similar document.
+3. If the upload is a PDF/image, Document AI OCR extracts text before analysis.
+4. LEXGUARD splits the text into clauses, classifies legal categories, detects risky patterns, and scores severity.
+5. The review screen shows a risk speedometer, clause evidence, plain-English impact, scenario simulation, and negotiation asks.
+6. Ask AI answers only contract-relevant questions grounded in the generated report.
+
+## Assumptions Made
+
+- LEXGUARD is decision support, not legal advice and not a replacement for a lawyer.
+- The prototype prioritizes explainability and demo reliability over exhaustive jurisdiction-specific legal coverage.
+- Uploaded contract text is processed for analysis; the browser does not persist raw uploaded text across refreshes.
+- BigQuery telemetry, when enabled, logs only aggregate metadata such as score, risk level, document type, and finding counts.
+- The deterministic analyzer is intentionally conservative: it should flag practical negotiation risks while no-risk samples can still return a clear report.
+
 ## Run Locally
 
 ```bash
